@@ -1,0 +1,71 @@
+@model QIP.Web.ViewModels.WardDashboardViewModel
+
+@if (Model.Patients.Count == 0)
+{
+    <div class="empty-state">
+        <h3>No active patients found</h3>
+        <p class="mb-0">Add a patient or tick a ward day within the last 5 days to display them here.</p>
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table patient-table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col" class="sticky-col patient-col">Patient</th>
+                    @foreach (var day in Model.Dates)
+                    {
+                        <th scope="col" class="@(day == Model.ReferenceDate ? "today-col" : string.Empty)">
+                            <div>@day.ToString("ddd")</div>
+                            <small>@day.ToString("dd MMM")</small>
+                        </th>
+                    }
+                    <th scope="col">Total days</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var patient in Model.Patients)
+                {
+                    <tr>
+                        <td class="sticky-col patient-col">
+                            <div class="patient-card">
+                                <div>
+                                    <div class="patient-name">@patient.Surname, @patient.Initials</div>
+                                    <div class="patient-meta">Folder: @patient.HospitalNumber</div>
+                                    <div class="patient-meta">DOB: @patient.DobDisplay • @(patient.Sex == QIP.Web.Models.Sex.Male ? "M" : "F")</div>
+                                </div>
+                                <div class="patient-actions">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-primary js-edit-patient"
+                                            data-id="@patient.Id"
+                                            data-surname="@patient.Surname"
+                                            data-initials="@patient.Initials"
+                                            data-hospital-number="@patient.HospitalNumber"
+                                            data-date-of-birth-iso="@patient.DateOfBirthIso"
+                                            data-sex="@((int)patient.Sex)">
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger js-delete-patient" data-id="@patient.Id">Delete</button>
+                                </div>
+                            </div>
+                        </td>
+                        @foreach (var day in patient.Days)
+                        {
+                            <td class="text-center @(day.IsCurrentDate ? "today-col" : string.Empty)">
+                                <label class="presence-toggle">
+                                    <input class="form-check-input js-presence-toggle"
+                                           type="checkbox"
+                                           data-patient-id="@patient.Id"
+                                           data-date="@day.Date.ToString("yyyy-MM-dd")"
+                                           @(day.IsPresent ? "checked" : null) />
+                                </label>
+                            </td>
+                        }
+                        <td class="fw-semibold text-center">@patient.TotalWardDays</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

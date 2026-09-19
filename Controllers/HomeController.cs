@@ -1,26 +1,20 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using QIP.Web.Infrastructure;
 using QIP.Web.Models;
 
 namespace QIP.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
-    {
-        _logger = logger;
-    }
-
     public IActionResult Index()
     {
-        return View();
-    }
+        if (HttpContext.Session.TryGetValue(WardAuthorizeAttribute.SessionKey, out _))
+        {
+            return RedirectToAction("Index", "Patients");
+        }
 
-    public IActionResult Privacy()
-    {
-        return View();
+        return RedirectToAction("Index", "Auth");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
