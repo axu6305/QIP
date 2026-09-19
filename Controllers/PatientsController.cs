@@ -40,7 +40,7 @@ public class PatientsController(AppDbContext dbContext) : Controller
 
         var normalizedHospitalNumber = model.HospitalNumber.Trim();
         var duplicateExists = await dbContext.Patients
-            .AnyAsync(x => x.HospitalNumber.ToLower() == normalizedHospitalNumber.ToLower() && x.Id != model.Id.GetValueOrDefault());
+            .AnyAsync(x => x.HospitalNumber == normalizedHospitalNumber && x.Id != model.Id.GetValueOrDefault());
 
         if (duplicateExists)
         {

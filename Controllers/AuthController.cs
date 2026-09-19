@@ -4,9 +4,9 @@ using QIP.Web.ViewModels;
 
 namespace QIP.Web.Controllers;
 
-public class AuthController : Controller
+public class AuthController(IConfiguration configuration) : Controller
 {
-    private static readonly HashSet<string> AllowedCodes = ["1111", "2222", "3333"];
+    private readonly HashSet<string> _allowedCodes = configuration.GetSection("WardAccessCodes").Get<string[]>()?.ToHashSet(StringComparer.Ordinal) ?? [];
 
     [HttpGet]
     public IActionResult Index()
@@ -29,7 +29,7 @@ public class AuthController : Controller
             return View("Index", model);
         }
 
-        if (!AllowedCodes.Contains(model.Code))
+        if (_allowedCodes.Count == 0 || !_allowedCodes.Contains(model.Code))
         {
             model.ErrorMessage = "Invalid access code.";
             return View("Index", model);

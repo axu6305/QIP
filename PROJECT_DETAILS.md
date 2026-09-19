@@ -25,10 +25,10 @@ QIP Ward Tracker is a lightweight ASP.NET Core MVC web application for capturing
 - `/database` - SQL Server create and seed scripts
 
 ## Database Setup
-1. Update the SQL Server connection string in `/home/runner/work/QIP/QIP/appsettings.json` and replace `<YOUR_SQL_PASSWORD>` with your SQL Server password.
-2. Run `/home/runner/work/QIP/QIP/database/001-create-database.sql` in SQL Server Management Studio.
-3. Optionally run `/home/runner/work/QIP/QIP/database/002-seed-sample-data.sql` to load demo records.
-4. Start the web app with `dotnet run` from `/home/runner/work/QIP/QIP`.
+1. Update the SQL Server connection string in `appsettings.json` and replace `<YOUR_SQL_PASSWORD>` with your SQL Server password.
+2. Run `database/001-create-database.sql` in SQL Server Management Studio.
+3. Optionally run `database/002-seed-sample-data.sql` to load demo records.
+4. Start the web app with `dotnet run` from the repository root.
 
 ## Functional Notes
 - New patients are automatically marked present on the currently selected date so they appear in the active list immediately.
