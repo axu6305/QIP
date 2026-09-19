@@ -25,7 +25,7 @@ QIP Ward Tracker is a lightweight ASP.NET Core MVC web application for capturing
 - `/database` - SQL Server create and seed scripts
 
 ## Database Setup
-1. Update the SQL Server connection string in `appsettings.json` and replace `<YOUR_SQL_PASSWORD>` with your SQL Server password.
+1. Create or assign a least-privilege SQL login for the application, then update the connection string in `appsettings.json` and replace `<YOUR_SQL_PASSWORD>` with that login password.
 2. Run `database/001-create-database.sql` in SQL Server Management Studio.
 3. Optionally run `database/002-seed-sample-data.sql` to load demo records.
 4. Start the web app with `dotnet run` from the repository root.
