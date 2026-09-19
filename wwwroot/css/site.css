@@ -1,0 +1,289 @@
+:root {
+  --bg: #eef4f7;
+  --card: #ffffff;
+  --ink: #183247;
+  --muted: #5e7486;
+  --line: #d6e2ea;
+  --accent: #1177cc;
+  --accent-soft: #dceeff;
+  --today: #fff6a8;
+}
+
+html {
+  font-size: 16px;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fbfd 0%, var(--bg) 100%);
+  color: var(--ink);
+}
+
+body, input, button, select {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-shell {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  background: linear-gradient(120deg, #16384f, #28597a);
+  color: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 40px rgba(17, 57, 88, 0.18);
+}
+
+.brand-link {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.brand-link:hover {
+  color: #fff;
+}
+
+.brand-subtitle {
+  margin: 0.15rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.app-content {
+  padding: 1.25rem 0 2rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.login-card,
+.toolbar-card,
+.entry-card,
+.grid-card,
+.modal-content {
+  background: var(--card);
+  border: 1px solid rgba(214, 226, 234, 0.85);
+  border-radius: 1.25rem;
+  box-shadow: 0 16px 28px rgba(13, 52, 80, 0.08);
+}
+
+.login-card {
+  max-width: 460px;
+  margin: 4rem auto;
+  padding: 2rem;
+}
+
+.login-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.dashboard-page {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.toolbar-card,
+.entry-card,
+.grid-card {
+  padding: 1.25rem;
+}
+
+.toolbar-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+  align-items: end;
+}
+
+.toolbar-actions {
+  min-width: min(100%, 320px);
+}
+
+.date-picker-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.patient-form-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: end;
+}
+
+.modal-form {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.button-stack {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.segmented-options {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.segmented-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.6rem 0.85rem;
+  background: #f8fbfd;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.patient-table {
+  --bs-table-bg: transparent;
+  min-width: 980px;
+  margin-bottom: 0;
+}
+
+.patient-table th,
+.patient-table td {
+  border-color: var(--line);
+  vertical-align: middle;
+}
+
+.patient-table thead th {
+  background: #f2f7fa;
+  text-align: center;
+  font-weight: 700;
+  min-width: 92px;
+}
+
+.patient-col {
+  min-width: 280px;
+  background: #f7fbfe;
+}
+
+.today-col {
+  background: var(--today) !important;
+}
+
+.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+
+.patient-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.patient-name {
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.patient-meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.patient-actions {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.presence-toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.presence-toggle input {
+  width: 1.35rem;
+  height: 1.35rem;
+  cursor: pointer;
+}
+
+.empty-state {
+  border: 1px dashed var(--line);
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  background: #fbfdff;
+}
+
+.grid-status {
+  font-size: 0.95rem;
+}
+
+@media (max-width: 991.98px) {
+  .toolbar-card,
+  .section-heading,
+  .patient-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .patient-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767.98px) {
+  .app-shell {
+    padding: 0.75rem;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .toolbar-card,
+  .entry-card,
+  .grid-card,
+  .login-card {
+    padding: 1rem;
+  }
+
+  .date-picker-row,
+  .button-stack,
+  .patient-form-grid,
+  .modal-form {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .date-picker-row {
+    display: grid;
+  }
+
+  .patient-col {
+    min-width: 240px;
+  }
+}

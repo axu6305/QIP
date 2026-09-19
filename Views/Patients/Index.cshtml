@@ -1,0 +1,121 @@
+@model QIP.Web.ViewModels.WardDashboardViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@{
+    ViewData["Title"] = "Patients";
+}
+
+<section class="dashboard-page" data-reference-page="true">
+    <input type="hidden" id="ajax-antiforgery" value="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
+    <div class="toolbar-card">
+        <div>
+            <span class="eyebrow">Ward list</span>
+            <h1 class="mb-2">Patients in the ward</h1>
+            <p class="text-muted mb-0">Shows patients with a last ward day within the last 5 days, plus 2 future planning days.</p>
+        </div>
+        <div class="toolbar-actions">
+            <label class="form-label mb-1" for="reference-date">Display date</label>
+            <div class="date-picker-row">
+                <input id="reference-date" class="form-control" type="date" value="@Model.ReferenceDate.ToString("yyyy-MM-dd")" />
+                <button id="refresh-grid" class="btn btn-outline-primary" type="button">Refresh</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="entry-card">
+        <div class="section-heading">
+            <div>
+                <h2>Add patient</h2>
+                <p class="text-muted mb-0">New patients are automatically marked present on the selected display date so they appear in the list immediately.</p>
+            </div>
+        </div>
+
+        <form id="patient-form" class="patient-form-grid">
+            <input type="hidden" name="id" value="" />
+            <input type="hidden" name="referenceDate" value="@Model.ReferenceDate.ToString("yyyy-MM-dd")" />
+
+            <div>
+                <label class="form-label">Surname</label>
+                <input class="form-control" name="surname" maxlength="100" required />
+            </div>
+            <div>
+                <label class="form-label">Name / Initial</label>
+                <input class="form-control" name="initials" maxlength="50" required />
+            </div>
+            <div>
+                <label class="form-label">Hospital folder no.</label>
+                <input class="form-control" name="hospitalNumber" maxlength="50" required />
+            </div>
+            <div>
+                <label class="form-label">Date of birth</label>
+                <input class="form-control" name="dateOfBirth" type="date" required />
+            </div>
+            <div>
+                <label class="form-label d-block">Sex</label>
+                <div class="segmented-options">
+                    <label><input type="radio" name="sex" value="1" checked /> M</label>
+                    <label><input type="radio" name="sex" value="2" /> F</label>
+                </div>
+            </div>
+            <div class="button-stack">
+                <button class="btn btn-primary" type="submit">Add patient</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="grid-card">
+        <div class="section-heading align-items-center">
+            <div>
+                <h2>Current patients</h2>
+                <p class="text-muted mb-0">Tick a box to mark the patient present for the day.</p>
+            </div>
+            <div id="grid-status" class="grid-status text-muted">Loading…</div>
+        </div>
+        <div id="patient-grid-container"></div>
+    </section>
+</section>
+
+<div class="modal fade" id="editPatientModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5">Edit patient</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-patient-form" class="patient-form-grid modal-form">
+                    <input type="hidden" name="id" />
+                    <input type="hidden" name="referenceDate" value="@Model.ReferenceDate.ToString("yyyy-MM-dd")" />
+
+                    <div>
+                        <label class="form-label">Surname</label>
+                        <input class="form-control" name="surname" maxlength="100" required />
+                    </div>
+                    <div>
+                        <label class="form-label">Name / Initial</label>
+                        <input class="form-control" name="initials" maxlength="50" required />
+                    </div>
+                    <div>
+                        <label class="form-label">Hospital folder no.</label>
+                        <input class="form-control" name="hospitalNumber" maxlength="50" required />
+                    </div>
+                    <div>
+                        <label class="form-label">Date of birth</label>
+                        <input class="form-control" name="dateOfBirth" type="date" required />
+                    </div>
+                    <div>
+                        <label class="form-label d-block">Sex</label>
+                        <div class="segmented-options">
+                            <label><input type="radio" name="sex" value="1" /> M</label>
+                            <label><input type="radio" name="sex" value="2" /> F</label>
+                        </div>
+                    </div>
+                    <div class="button-stack">
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
